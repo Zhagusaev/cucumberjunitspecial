@@ -1,7 +1,10 @@
 package API;
 
+import Pojo.Posts;
+import Pojo.Reques;
 import Utilities.Driver;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.jsoup.helper.HttpConnection;
@@ -9,6 +12,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.matcher.RestAssuredMatchers.*;
@@ -183,7 +192,7 @@ public class restAssuredPractice {
     public void test13(){
       Response response = given().relaxedHTTPSValidation() //For ssl certificate verification
                 .auth().preemptive().basic("admin", "admin")
-                .pathParam("id",24)
+                .pathParam("id",17)
                 .get("https://www.techtorial.dev.cc/wp-json/wp/v2/posts/{id}");
 
         int id = response.jsonPath().getInt("id");
@@ -198,9 +207,107 @@ public class restAssuredPractice {
 
         Driver.getDriver().manage().window().maximize();
 
-        String actual = Driver.getDriver().findElement(By.linkText("NEW POST FROM REST ASSURED")).getText();
+        String actual = Driver.getDriver().findElement(By.linkText("NEW POST FROM POSTMAN12")).getText();
 
         Assert.assertEquals(expected, actual);
+
+
+    }
+
+    @Test
+    public void test14(){
+        Response response = given().relaxedHTTPSValidation() //For ssl certificate verification
+                .auth().preemptive().basic("admin", "admin")
+                .pathParam("id",17)
+                .get("https://www.techtorial.dev.cc/wp-json/wp/v2/posts/{id}");
+
+        int id = response.jsonPath().getInt("id");
+
+        System.out.println("id is equals to "+id);
+
+        String expected = response.jsonPath().getString("content.rendered").replace("<p>","").replace("</p>","").trim();
+
+        System.out.println("content.rendered "+expected);
+
+        Driver.getDriver().get("https://www.techtorial.dev.cc");
+
+        Driver.getDriver().manage().window().maximize();
+
+        String actual = Driver.getDriver().findElement(By.xpath("//*[@id='post-17']/div/p")).getText();
+
+        Assert.assertEquals(expected, actual);
+
+
+    }
+
+    @Test
+    public void test15(){
+
+        Response response = given().relaxedHTTPSValidation()
+                .auth().preemptive().basic("admin", "admin")
+                .get("/posts");
+
+        System.out.println(response.jsonPath().getList("title.rendered"));
+
+        List<String> expectedPosts = response.jsonPath().getList("title.rendered",String.class);
+
+        System.out.println(expectedPosts);
+
+        Driver.getDriver().get("https://www.techtorial.dev.cc");
+
+        List<WebElement> titles= Driver.getDriver().findElements(By.xpath("//h3[@class='entry-title']"));
+
+        List<String>actualPosts = new ArrayList<String>();
+
+        for (WebElement element: titles){
+            actualPosts.add(element.getText());
+        }
+
+        Assert.assertEquals(expectedPosts,actualPosts);
+
+    }
+
+    @Test
+    public void test16(){
+        Reques obj = new Reques("morpheus", "leader");
+
+        given()
+                .body(obj)
+                .post("https://reqres.in/api/users")
+                .then().statusCode(201);
+    }
+
+    //POJO ---> Plain object old
+
+    @Test
+    public void test17(){
+
+        Posts obj = new Posts("POJO CLASS OBJECT","This is post request using pojo classes","publish");
+        obj.setTitle("changing Title with LOMBOK getters and setter");
+        System.out.println(obj);
+
+        given().relaxedHTTPSValidation().auth().preemptive().basic("admin","admin")
+                .contentType(ContentType.JSON)         //to check number         to check word created of status code
+                .body(obj).post("/posts").then().statusCode(201).statusCode(HttpStatus.SC_CREATED)
+                .body("status",equalTo("publish"));
+    }
+
+    @Test
+    public void test18(){
+
+
+        Response response = given().relaxedHTTPSValidation().auth().preemptive().basic("admin", "admin")
+                .get("/posts/35");
+
+        JsonPath jsonPath = response.jsonPath();
+        int id = jsonPath.getInt("id");
+
+        Map<String, String> links = jsonPath.getMap("_links.self[0]",String.class,String.class);
+
+        System.out.println(links.keySet());
+
+        System.out.println(links.values());
+
 
 
     }
