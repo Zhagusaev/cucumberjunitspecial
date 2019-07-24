@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: Runner.Runner
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 16.951 s <<< FAILURE! - in Runner.Runner
+Verifying that items price range is properly displayed(Testing Etsy Web Application)  Time elapsed: 16.535 s  <<< ERROR!
+org.openqa.selenium.NoSuchElementException: 
+no such element: Unable to locate element: {"method":"css selector","selector":"#global\-enhancements\-search\-query"}
+  (Session info: chrome=75.0.3770.100)
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'Kanybeks-MacBook-Pro.local', ip: '2600:1008:b16b:eb3a:59b2:d786:9469:618%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.14.5', java.version: '12'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 75.0.3770.100, chrome: {chromedriverVersion: 75.0.3770.90 (a6dcaf7e3ec6f..., userDataDir: /var/folders/35/s4_755vx4wd...}, goog:chromeOptions: {debuggerAddress: localhost:49624}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: MAC, platformName: MAC, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 9fe9e70d964c5d5f034f3587a602aaec
+*** Element info: {Using=id, value=global-enhancements-search-query}
+

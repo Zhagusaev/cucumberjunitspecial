@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: Runner.TestRunner
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.077 s <<< FAILURE! - in Runner.TestRunner
+initializationError(Runner.TestRunner)  Time elapsed: 0.008 s  <<< ERROR!
+java.lang.IllegalArgumentException: Not a file or directory: /Users/kanybek/Desktop/GitHubProjects/cucumberjunitspecial/src/test/resources/features
+

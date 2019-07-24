@@ -1,0 +1,6 @@
+#surefire_0
+#Tue Jul 02 23:37:36 CDT 2019
+basedir=/Users/kanybek/Desktop/GitHubProjects/cucumberjunitspecial
+skiptTests=true
+user.dir=/Users/kanybek/Desktop/GitHubProjects/cucumberjunitspecial
+localRepository=/Users/kanybek/.m2/repository
